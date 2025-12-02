@@ -53,3 +53,29 @@ exports.getUserById = async(req, res) => {
     }
 }
 
+
+// PUT /api/user/:userId
+exports.updateUserLanguage = async(req, res) => {
+    const { userId } = req.params;
+    const { learningLanguage } = req.body;
+    
+    try {
+        const updatedUser  = await User.findOneAndUpdate(
+            {userId},
+            {learningLanguage},
+            {new: true}
+        );
+
+        if(!updatedUser ) {
+            return res.status(404).json({message: 'User not found'});
+        }
+
+        res.status(200).json({updatedUser});
+
+        } catch (error){
+            console.error('Error update user language ', error.message);
+            return res.status(500).json({message: 'Failed update user language'});
+
+    }
+};
+    
