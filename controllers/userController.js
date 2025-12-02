@@ -50,7 +50,6 @@ exports.getUserById = async(req, res) => {
 }
 
 
-// PUT /api/user/:userId
 exports.updateUserLanguage = async(req, res) => {
     const user = req.user;
     const { learningLanguage } = req.body;
@@ -63,6 +62,22 @@ exports.updateUserLanguage = async(req, res) => {
         } catch (error){
             console.error('Error update user language ', error.message);
             return res.status(500).json({message: 'Failed update user language'});
+
+    }
+};
+
+exports.updateUserDifficulty = async(req, res) => {
+    const user = req.user;
+    const { difficulty } = req.body;
+    
+    try {
+        user.difficulty = difficulty;
+        await user.save();
+        return res.status(200).json({user});
+
+        } catch (error){
+            console.error('Error update user difficulty ', error.message);
+            return res.status(500).json({message: 'Failed update user difficulty'});
 
     }
 };
