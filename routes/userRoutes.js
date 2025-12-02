@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { createUser, getUserById, updateUserLanguage, updateUserDifficulty, updateUserTotalScore } = require('../controllers/userController');
+const { createUser, getUserById, updateUserLanguage, updateUserDifficulty, updateUserTotalScore, updateUserAnswers } = require('../controllers/userController');
 const { validateUserExists } = require('../middleware/validateUserExists')
 
 //register
@@ -13,5 +13,7 @@ router.patch('/user/:userId/language',validateUserExists, updateUserLanguage);
 router.patch('/user/:userId/difficulty', validateUserExists, updateUserDifficulty );
 // update user total score by userId
 router.patch('/user/:userId/totalScore', validateUserExists, updateUserTotalScore );
+// update user stat answers by userId
+router.patch('/user/:userId/answers', validateUserExists, updateUserAnswers);
 
 module.exports = router;

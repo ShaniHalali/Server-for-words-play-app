@@ -97,4 +97,21 @@ exports.updateUserTotalScore = async(req, res) => {
 
     }
 };
+
+exports.updateUserAnswers = async(req, res) => {
+    const user = req.user;
+    const { correctAnswers, wrongAnswers } = req.body;
+    
+    try {
+        user.numOfWrongAnswers += correctAnswers;
+        user.NumOfCorrectAnswers += wrongAnswers;
+        await user.save();
+        return res.status(200).json({user});
+
+        } catch (error){
+            console.error('Error update user status answers ', error.message);
+            return res.status(500).json({message: 'Failed update user status answers'});
+
+    }
+};
     
