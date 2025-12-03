@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { createUser, getUserById, updateUserLanguage, updateUserDifficulty, updateUserTotalScore, updateUserAnswers } = require('../controllers/userController');
+const { createUser, getUserById, updateUserLanguage, updateUserDifficulty, updateUserTotalScore, updateUserAnswers, leaderboard } = require('../controllers/userController');
 const { validateUserExists } = require('../middleware/validateUserExists')
 
 //register
@@ -15,5 +15,7 @@ router.patch('/user/:userId/difficulty', validateUserExists, updateUserDifficult
 router.patch('/user/:userId/totalScore', validateUserExists, updateUserTotalScore );
 // update user stat answers by userId
 router.patch('/user/:userId/answers', validateUserExists, updateUserAnswers);
+// get leaderboard
+router.get('/leaderboard',leaderboard);
 
 module.exports = router;
