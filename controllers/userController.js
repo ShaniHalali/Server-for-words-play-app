@@ -118,12 +118,13 @@ exports.updateUserAnswers = async(req, res) => {
 exports.leaderboard = async(req, res) => {
     try {
         //get all users - with name and total score and sort by highest score
-        const leaderboard = await User
+        const topTen = await User
             .find()
             .select('name totalScore -_id')
-            .sort({totalScore: -1});
+            .sort({totalScore: -1})
+            .limit(10);
 
-        return res.status(200).json({leaderboard});
+        return res.status(200).json({topTen});
 
     } catch (error) {
         console.error('Error upload leaderboard', error.message);
