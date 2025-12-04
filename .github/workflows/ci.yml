@@ -1,0 +1,32 @@
+name: CI - Build and Test Server
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Lint check (optional)
+        run: echo "Skipping lint for now"
+
+      - name: Docker build (server image)
+        run: docker build -t words-play-server .
+
+      - name: Verify Docker image created
+        run: docker images
